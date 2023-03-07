@@ -10,7 +10,7 @@ autoinstall:
     - echo ubuntu-host-$(openssl rand -hex 3) > /target/etc/hostname
     # dump the IP out at login screen
     - echo "Ubuntu 22.04 LTS \nIP - $(hostname -I)\n" > /target/etc/issue
-    - echo "#!/bin/bash\nwget -qO- https://raw.githubusercontent.com/QuikServe/carbon-bootstrap/master/ubuntu/scripts/bootstrap.sh | bash" > /home/quikserve/install.sh
+    - echo "#!/bin/bash\nwget -qO- https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/ubuntu/scripts/bootstrap.sh | bash" > /home/quikserve/install.sh
     - chmod +x /home/quikserve/install.sh
     - sed -i 's|/home/quikserve:/bin/bash|/home/quikserve:/home/quikserve/install.sh|g' /target/etc/passwd
     - mkdir -p /etc/systemd/system/getty@tty1.service.d
