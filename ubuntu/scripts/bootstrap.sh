@@ -1,5 +1,22 @@
 #!/bin/bash
 
-touch test.txt
+sudo touch /home/quikserve/test.txt
 
-sed -i 's|/opt/quikserve/install.sh|/bin/bash|g' /etc/passwd
+ # Remove setup user
+sudo deluser setup --remove-home
+sudo rm /etc/systemd/system/getty@tty1.service.d/override.conf
+
+# Detect hardware
+
+# Install base dependencies
+
+# Setup security updates automatic
+
+# Install/configure hardware specific dependencies
+
+# Setup pos user
+  # auto login
+
+# SSH only for quikserve user with key
+
+# Install POS
