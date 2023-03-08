@@ -2,10 +2,6 @@
 
 sudo touch /home/quikserve/test.txt
 
- # Remove setup user
-sudo deluser setup --remove-home
-sudo rm /etc/systemd/system/getty@tty1.service.d/override.conf
-
 # Detect hardware
 
 # Install base dependencies
@@ -20,3 +16,6 @@ sudo rm /etc/systemd/system/getty@tty1.service.d/override.conf
 # SSH only for quikserve user with key
 
 # Install POS
+
+ # Remove autologin for setup
+#sudo rm /etc/systemd/system/getty@tty1.service.d/override.conf

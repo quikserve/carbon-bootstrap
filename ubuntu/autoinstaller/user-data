@@ -27,8 +27,8 @@ autoinstall:
       - name: quikserve
         primary_group: users
         groups: sudo
-        lock_passwd: true
-        passwd: "$6$pcTWyhCsulr39xoy$VpGgN0db1.7S6aQ8Y8ZgITjH7siA2CkrUvphbX.3ruYc0fRWm7ANeVWirnu01Li7Pa59Zt.5qaukXOyqhAtUX1"
+        lock-passwd: false
+        passwd: "$6$rounds=4096$DyjLKVGd1kmVHm$SmuOSLj.UKWaR5YIZqCCTJc3/K6qR3mWqYd2tT7lAcCsyg8kdaI1O6Ybo58mdfuyI1fzzFggMlvVvR5xO.YAT."
         shell: /bin/bash
         ssh_authorized_keys:
           - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDlylOJfZ90Go3wUInjoZSEjBHMIhaNv9N8TN3Ydm2YI2J7ilqVRrEeXw5IcYoxG9nuCx2ZeVqjSJ6Ft13QGvBdXDjPFXYXM7lzAJLRjf0edgJP5EEQkec6StXF9W8VEGI9hbIVYc359ez/HDpp2Ly9pO/gOeYmg3L+MKZ6qL39WtoTaBwwTxQox5HsFsE9NZN0RalqZ5MwrwVo4hrQVceXxfBOmlAEtyOVpfcI2VCN7HjouMYgz0cAatSX0kbRAyhMkHCPLtZBIjzmaWFlviIF6zU0HfRRNP4987ASRCTA+KCv2TK1OevPESCWxoF1YDjEWLvS1wixqOcos3xbH8aJt903hf1yIl8U4LqO/85XcwdQaM7uSU3HrU0luUydmqapPh3onzoZt1TVZIf4ZfDNMy3F05RJOybaoenyxSCUILf/9HedJEVxJM5zjxwgaggDT6ZiOpExwtFMl/S1lcZ0GNgdlUu9BQhlX8fOkPQZL41qhndnXq4OoWPf1gwNrss="
@@ -36,8 +36,8 @@ autoinstall:
       - name: setup
         primary_group: users
         groups: sudo
-        lock_passwd: true
-        passwd: "$6$pcTWyhCsulr39xoy$VpGgN0db1.7S6aQ8Y8ZgITjH7siA2CkrUvphbX.3ruYc0fRWm7ANeVWirnu01Li7Pa59Zt.5qaukXOyqhAtUX1"
+        lock-passwd: false
+        passwd: "$6$rounds=4096$DyjLKVGd1kmVHm$SmuOSLj.UKWaR5YIZqCCTJc3/K6qR3mWqYd2tT7lAcCsyg8kdaI1O6Ybo58mdfuyI1fzzFggMlvVvR5xO.YAT."
         shell: /opt/quikserve/install.sh
         sudo: ALL=(ALL) NOPASSWD:ALL
     # shutdown after first host initial provisioning
