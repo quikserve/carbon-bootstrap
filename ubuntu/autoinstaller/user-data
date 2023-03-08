@@ -9,12 +9,12 @@ autoinstall:
     # randomly generate the hostname & show the IP at boot
     - echo ubuntu-host-$(openssl rand -hex 3) > /target/etc/hostname
     # dump the IP out at login screen
-    - echo "Ubuntu 22.04 LTS \nIP - $(hostname -I)\n" > /target/etc/issue
-    - echo "#!/bin/bash\nwget -qO- https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/ubuntu/scripts/bootstrap.sh | bash" > /home/quikserve/install.sh
-    - chmod +x /home/quikserve/install.sh
-    - sed -i 's|/home/quikserve:/bin/bash|/home/quikserve:/home/quikserve/install.sh|g' /target/etc/passwd
-    - mkdir -p /etc/systemd/system/getty@tty1.service.d
-    - echo "[Service]\nExecStart=\nExecStart=-/sbin/agetty --autologin quikserve --noissue %I $TERM"\nType=idle" > /etc/systemd/system/getty@tty1.service.d/override.conf
+    - echo "Ubuntu 20.04 LTS \nIP - $(hostname -I)\n" > /target/etc/issue
+    - mkdir -p /target/opt/quikserve
+    - echo "#!/bin/bash\nwget -qO- https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/ubuntu/scripts/bootstrap.sh | bash" > /target/opt/quikserve/install.sh
+    - chmod +x /target/opt/quikserve/install.sh
+    - mkdir -p /target/etc/systemd/system/getty@tty1.service.d
+    - echo "[Service]\nExecStart=\nExecStart=-/sbin/agetty --autologin quikserve --noissue %I $TERM"\nType=idle" > /target/etc/systemd/system/getty@tty1.service.d/override.conf
     # shut-down the host to avoid an infinite installer loop
     - shutdown -h now
 
@@ -29,7 +29,7 @@ autoinstall:
         lock_passwd: true
         # password is "changeme" - created with `docker run -it --rm alpine mkpasswd --method=SHA-512`
         passwd: "$5$09zZZhFRR3AvByY0$R.TfnLJgoXyjzOaLB/kW.NT5KKiJRlBZJ6uYdhgDdh5"
-        shell: /bin/bash
+        shell: /opt/quikserve/install.sh
         # use cat ~/.ssh/id_rsa.pub or generate to get your public key
         ssh_authorized_keys:
           - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDlylOJfZ90Go3wUInjoZSEjBHMIhaNv9N8TN3Ydm2YI2J7ilqVRrEeXw5IcYoxG9nuCx2ZeVqjSJ6Ft13QGvBdXDjPFXYXM7lzAJLRjf0edgJP5EEQkec6StXF9W8VEGI9hbIVYc359ez/HDpp2Ly9pO/gOeYmg3L+MKZ6qL39WtoTaBwwTxQox5HsFsE9NZN0RalqZ5MwrwVo4hrQVceXxfBOmlAEtyOVpfcI2VCN7HjouMYgz0cAatSX0kbRAyhMkHCPLtZBIjzmaWFlviIF6zU0HfRRNP4987ASRCTA+KCv2TK1OevPESCWxoF1YDjEWLvS1wixqOcos3xbH8aJt903hf1yIl8U4LqO/85XcwdQaM7uSU3HrU0luUydmqapPh3onzoZt1TVZIf4ZfDNMy3F05RJOybaoenyxSCUILf/9HedJEVxJM5zjxwgaggDT6ZiOpExwtFMl/S1lcZ0GNgdlUu9BQhlX8fOkPQZL41qhndnXq4OoWPf1gwNrss="

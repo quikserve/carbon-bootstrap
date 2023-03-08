@@ -2,4 +2,4 @@
 
 touch test.txt
 
-sed -i 's|/home/quikserve/install.sh|/bin/bash|g' /etc/passwd
+sed -i 's|/opt/quikserve/install.sh|/bin/bash|g' /etc/passwd
