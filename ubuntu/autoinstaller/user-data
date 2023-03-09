@@ -8,9 +8,9 @@ autoinstall:
 
   late-commands:
     # randomly generate the hostname & show the IP at boot
-    - echo ubuntu-host-$(openssl rand -hex 3) > /target/etc/hostname
+    - echo carbon-$(openssl rand -hex 3) > /target/etc/hostname
     # dump the IP out at login screen
-    - echo "Ubuntu 20.04 LTS \nIP - $(hostname -I)\n" > /target/etc/issue
+    - echo "Ubuntu 22.04 LTS \nIP - $(hostname -I)\n" > /target/etc/issue
     - mkdir -p /target/opt/quikserve
     - echo "#!/bin/bash\nwget -qO- https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/ubuntu/scripts/bootstrap.sh | bash" > /target/opt/quikserve/install.sh
     - chmod +x /target/opt/quikserve/install.sh
@@ -40,9 +40,6 @@ autoinstall:
         passwd: "$6$rounds=4096$DyjLKVGd1kmVHm$SmuOSLj.UKWaR5YIZqCCTJc3/K6qR3mWqYd2tT7lAcCsyg8kdaI1O6Ybo58mdfuyI1fzzFggMlvVvR5xO.YAT."
         shell: /opt/quikserve/install.sh
         sudo: ALL=(ALL) NOPASSWD:ALL
-    # shutdown after first host initial provisioning
-    power_state:
-      mode: reboot
 
   storage:
     layout:
