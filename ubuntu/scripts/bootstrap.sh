@@ -2,7 +2,7 @@
 
 echo "QuikServe Solutions"
 echo "Setup will now begin..."
-echo "\n\nPlease be patient as this may take a few minutes.\n\n"
+echo -e "\n\nPlease be patient as this may take a few minutes.\n\n"
 
 function check_internet {
     echo "Checking internet connection..."
@@ -41,13 +41,11 @@ sudo apt remove --autoremove gnome-initial-setup
 
 # Setup pos user
 if ! id -u "pos" >/dev/null 2>&1; then
-  sudo useradd pos
+  sudo useradd -m pos
   echo "pos:pos" | sudo chpasswd
   sudo sed -i 's/#  AutomaticLoginEnable = true/AutomaticLoginEnable=true/g' /etc/gdm3/custom.conf
   sudo sed -i 's/#  AutomaticLogin = user1/AutomaticLogin=pos/g' /etc/gdm3/custom.conf
 fi
-
-# SSH only for quikserve user with key
 
 # Install POS
 
