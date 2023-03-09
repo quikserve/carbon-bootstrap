@@ -2,4 +2,4 @@
 
 Setup terminals to run CarbonPOS
 
-Visit the [wiki](https://github.com/quikserve/carbon-bootstrap/wiki)
+[Ubuntu Autoinstall](https://github.com/quikserve/carbon-bootstrap/blob/master/ubuntu/autoinstaller/autoinstall.md)
