@@ -8,8 +8,17 @@ mkdir -p $INSTALL_DIR
 # enter overseer url
 read -p "Overseer URL: " OVERSEER_URL
 
-# enter short code
-read -p "Short Code: " SHORT_CODE
+# enter install code
+read -p "Install Code: " SHORT_CODE
+
+# reach out to overseer to get token from short code
+TOKEN = $(curl --request GET \
+  --url http://$OVERSEER_URL/api/location-token/$SHORT_CODE | jq -r '.carbonToken')
+
+echo -e "\nCarbon Token: ${TOKEN}\n"
+
+# reach out to overseer to get pos binary
+wget --header="Authorization: Basic ${TOKEN}" -O $INSTALL_DIR/pos http://$OVERSEER_URL/api/carbon/dist/pos/linux_x86
 
 # select pos options
 echo -e "POS Options\n"
@@ -18,10 +27,6 @@ read -p "Enable Customer Display (y/N): " CUSTOMER_DISPLAY
 read -p "Fullscreen (Y/n): " FULLSCREEN
 read -p "Demo Mode (y/N): " DEMO_MODE
 read -p "Memory Mode (y/N): " MEMORY_MODE
-
-# reach out to overseer to get token from short code
-
-# reach out to overseer to get pos binary
 
 # could setup auto-updates?
 
