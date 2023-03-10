@@ -51,9 +51,12 @@ sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.sess
 sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 # Install POS
-wget -qO- https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/carbon/install.sh | sudo bash
+wget https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/carbon/install.sh
+chmod +x install.sh
+./install.sh
 
 sudo mkdir -p /home/pos/.config/autostart
+sudo chown -R pos:pos /home/pos/.config
 echo "[Desktop Entry]
 Type=Application
 Exec=/home/pos/quikserve/pos
