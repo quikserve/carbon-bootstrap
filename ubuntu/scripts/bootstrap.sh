@@ -41,13 +41,30 @@ sudo apt remove --autoremove gnome-initial-setup
 
 # Setup pos user
 if ! id -u "pos" >/dev/null 2>&1; then
-  sudo useradd -m pos
+  sudo useradd -m pos -s /bin/bash
   echo "pos:pos" | sudo chpasswd
   sudo sed -i 's/#  AutomaticLoginEnable = true/AutomaticLoginEnable=true/g' /etc/gdm3/custom.conf
   sudo sed -i 's/#  AutomaticLogin = user1/AutomaticLogin=pos/g' /etc/gdm3/custom.conf
 fi
 
+sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.session idle-delay 0
+sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
 # Install POS
+wget -qO- https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/carbon/install.sh | sudo bash
+
+sudo mkdir -p /home/pos/.config/autostart
+echo "[Desktop Entry]
+Type=Application
+Exec=/home/pos/quikserve/pos
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=POS
+Name=POS
+Comment[en_US]=
+Comment=" | sudo tee /home/pos/.config/autostart/pos.desktop
+sudo chown pos:pos /home/pos/.config/autostart/pos.desktop
 
 # Remove autologin for setup
 sudo rm /etc/systemd/system/getty@tty1.service.d/override.conf

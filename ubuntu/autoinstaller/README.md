@@ -5,6 +5,8 @@ that is mounted during the installation process.
 
 This guide was roughly based on [How to automate a bare metal Ubuntu 22.04 installation](https://www.jimangel.io/posts/automate-ubuntu-22-04-lts-bare-metal/). The actual Ubuntu documentation is [here](https://ubuntu.com/server/docs/install/autoinstall).
 
+All commands assume a debian based system.
+
 ## How to use
 
 NOTE: We prefer Ubuntu 22.04 as it defaults to wayland, which fixes some multi-display issues. However,
@@ -67,3 +69,5 @@ python3 -m pip install .
 export MODDED_ISO="${ORIG_ISO::-4}-modded.iso"
 livefs-edit ../$ORIG_ISO ../$MODDED_ISO --cp /tmp/grub.cfg new/iso/boot/grub/grub.cfg
 ```
+
+### Create the installation media
