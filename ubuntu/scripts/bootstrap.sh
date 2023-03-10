@@ -56,7 +56,6 @@ chmod +x install.sh
 ./install.sh
 
 sudo mkdir -p /home/pos/.config/autostart
-sudo chown -R pos:pos /home/pos/.config
 echo "[Desktop Entry]
 Type=Application
 Exec=/home/pos/quikserve/pos
@@ -67,7 +66,7 @@ Name[en_US]=POS
 Name=POS
 Comment[en_US]=
 Comment=" | sudo tee /home/pos/.config/autostart/pos.desktop
-sudo chown pos:pos /home/pos/.config/autostart/pos.desktop
+sudo chown -R pos:pos /home/pos/.config
 
 # Remove autologin for setup
 sudo rm /etc/systemd/system/getty@tty1.service.d/override.conf
