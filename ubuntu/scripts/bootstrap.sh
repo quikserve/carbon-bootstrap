@@ -4,6 +4,8 @@ echo "QuikServe Solutions"
 echo "Setup will now begin..."
 echo -e "\n\nPlease be patient as this may take a few minutes.\n\n"
 
+echo "127.0.0.1 $(hostname)" | sudo tee -a /etc/hosts >/dev/null
+
 function check_internet {
     echo "Checking internet connection..."
     wget -q --tries=10 --timeout=20 --spider http://google.com
