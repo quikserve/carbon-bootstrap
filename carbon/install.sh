@@ -12,13 +12,13 @@ read -p "Overseer URL: " OVERSEER_URL
 read -p "Install Code: " SHORT_CODE
 
 # reach out to overseer to get token from short code
-TOKEN = $(curl --request GET \
-  --url http://$OVERSEER_URL/api/location-token/$SHORT_CODE | jq -r '.carbonToken')
+TOKEN=$(curl --request GET \
+  --url $OVERSEER_URL/api/location-token/$SHORT_CODE | jq -r '.carbonToken')
 
 echo -e "\nCarbon Token: ${TOKEN}\n"
 
 # reach out to overseer to get pos binary
-wget --header="Authorization: Basic ${TOKEN}" -O $INSTALL_DIR/pos http://$OVERSEER_URL/api/carbon/dist/pos/linux_x86
+wget --header="Authorization: Basic ${TOKEN}" -qO $INSTALL_DIR/pos $OVERSEER_URL/api/carbon/dist/pos/linux_x86
 
 # select pos options
 echo -e "POS Options\n"
