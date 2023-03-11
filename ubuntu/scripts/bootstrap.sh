@@ -54,7 +54,6 @@ sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.sess
 sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 # Install POS
-wget 
 wget -O carbon.sh https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/carbon/install.sh
 chmod +x carbon.sh
 ./carbon.sh
