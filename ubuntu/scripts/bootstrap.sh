@@ -21,9 +21,6 @@ check_internet
 
 sleep 5
 
-export NEEDRESTART_MODE=a
-export DEBIAN_FRONTEND=noninteractive
-
 # Detect hardware
 
 # Install base dependencies
