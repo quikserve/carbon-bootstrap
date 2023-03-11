@@ -19,6 +19,8 @@ check_internet
 
 sleep 5
 
+export DEBIAN_FRONTEND=noninteractive
+
 # Detect hardware
 
 # Install base dependencies
