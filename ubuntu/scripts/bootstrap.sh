@@ -68,7 +68,7 @@ X-GNOME-Autostart-enabled=true
 Name[en_US]=POS
 Name=POS
 Comment[en_US]=
-Comment=" | sudo tee /home/pos/.config/autostart/pos.desktop
+Comment=" | sudo tee /home/pos/.config/autostart/pos.desktop >/dev/null
 sudo chown -R pos:pos /home/pos/.config
 
 # Remove autologin for setup
