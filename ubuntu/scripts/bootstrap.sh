@@ -35,7 +35,7 @@ if [ $version == "20.04" ]; then
 fi
 
 sudo apt update && sudo NEEDRESTART_MODE=a DEBIAN_FRONTEND=noninteractive apt upgrade -y
-sudo NEEDRESTART_MODE=a DEBIAN_FRONTEND=noninteractive apt install -y ubuntu-desktop-minimal
+sudo NEEDRESTART_MODE=a DEBIAN_FRONTEND=noninteractive apt install -y ubuntu-desktop-minimal dbus-x11 jq
 sudo DEBIAN_FRONTEND=noninteractive apt remove --autoremove gnome-initial-setup
 
 # Setup security updates automatic
@@ -45,7 +45,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt remove --autoremove gnome-initial-setup
 # Setup pos user
 if ! id -u "pos" >/dev/null 2>&1; then
   sudo useradd -m pos -s /bin/bash
-  echo "quikserve:quikserve" | sudo chpasswd
+  echo "pos:quikserve" | sudo chpasswd
   sudo sed -i 's/#  AutomaticLoginEnable = true/AutomaticLoginEnable=true/g' /etc/gdm3/custom.conf
   sudo sed -i 's/#  AutomaticLogin = user1/AutomaticLogin=pos/g' /etc/gdm3/custom.conf
 fi
@@ -56,7 +56,7 @@ sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.inte
 # Install POS
 wget -O carbon.sh https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/carbon/install.sh
 chmod +x carbon.sh
-./carbon.sh
+sudo ./carbon.sh
 
 sudo mkdir -p /home/pos/.config/autostart
 echo "[Desktop Entry]
