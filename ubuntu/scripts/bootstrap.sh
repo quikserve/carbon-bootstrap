@@ -34,7 +34,7 @@ if [ $version == "20.04" ]; then
   sudo do-release-upgrade -f DistUpgradeViewNonInteractive
 fi
 
-sudo apt update && sudo apt upgrade -y
+sudo apt update && sudo NEEDRESTART_MODE=a apt upgrade -y
 sudo apt install -y ubuntu-desktop-minimal
 sudo apt remove --autoremove gnome-initial-setup
 
