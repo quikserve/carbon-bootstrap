@@ -57,19 +57,6 @@ wget -qO carbon.sh https://raw.githubusercontent.com/quikserve/carbon-bootstrap/
 chmod +x carbon.sh
 sudo ./carbon.sh < /dev/tty
 
-sudo mkdir -p /home/pos/.config/autostart
-echo "[Desktop Entry]
-Type=Application
-Exec=/home/pos/quikserve/pos
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name[en_US]=POS
-Name=POS
-Comment[en_US]=
-Comment=" | sudo tee /home/pos/.config/autostart/pos.desktop >/dev/null
-sudo chown -R pos:pos /home/pos/.config
-
 # Remove autologin for setup
 sudo rm /etc/systemd/system/getty@tty1.service.d/override.conf
 
