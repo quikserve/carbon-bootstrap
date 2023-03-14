@@ -55,7 +55,7 @@ sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.inte
 # Install POS
 wget -qO carbon.sh https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/carbon/install.sh
 chmod +x carbon.sh
-sudo ./carbon.sh
+sudo ./carbon.sh < /dev/tty
 
 sudo mkdir -p /home/pos/.config/autostart
 echo "[Desktop Entry]
