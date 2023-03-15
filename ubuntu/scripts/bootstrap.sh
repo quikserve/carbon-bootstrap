@@ -30,7 +30,7 @@ sleep 5
 # This issue may provide updates: https://bugs.launchpad.net/subiquity/+bug/2000470
 version=$(lsb_release -sr)
 if [ $version == "20.04" ]; then
-  sudo do-release-upgrade -f DistUpgradeViewNonInteractive
+  sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a do-release-upgrade -f DistUpgradeViewNonInteractive
 fi
 
 sudo apt update && sudo NEEDRESTART_MODE=a DEBIAN_FRONTEND=noninteractive apt upgrade -y
