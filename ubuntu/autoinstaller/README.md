@@ -9,29 +9,28 @@ All commands assume a debian based system.
 
 ## How to use
 
-NOTE: We prefer Ubuntu 22.04 as it defaults to wayland, which fixes some multi-display issues. However,
-as of current 22.04 has issues with autoinstall so 20.04 is what is currently used. Hopefully this will
-be resolved soon.
+NOTE: The Razor terminals currently have issues autoinstalling Ubuntu 22.04. We can get around this
+by installing Ubuntu 20.04 and then upgrading to 22.04. Hopefully this will be fixed in the future.
+If you are using a Razor terminal, you will need to use Ubuntu 20.04 in place of 22.04 below.
 
 ### Download the ISO
 
 ```bash
 sudo su -
-export ISO="https://releases.ubuntu.com/22.04/ubuntu-22.04.1-live-server-amd64.iso"
+export ISO="https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso"
 wget $ISO
 ```
 
-### Disable install prompts
+### Create the modified ISO
 
-This is used to disable the initial installation prompt.
+This is used to specify the autoinstall files and to reduce the boot menu timeout.
 
-WARNING: This will disable the install prompt for the installation media. If the installation media were
-to be left in a machine which was set to boot from it, it would automatically install Ubuntu.
+WARNING: The below updates to the grub file also enable autoinstall. This will disable the install prompt for the installation media. If the installation media were to be left in a machine which was set to boot from it, it would automatically install Ubuntu.
 
 #### Mount the ISO locally to copy files
 
 ```bash
-export ORIG_ISO="ubuntu-22.04.1-live-server-amd64.iso"
+export ORIG_ISO="ubuntu-22.04.5-live-server-amd64.iso"
 mkdir mnt
 mount -o loop $ORIG_ISO mnt
 ```
@@ -43,6 +42,20 @@ cp --no-preserve=all mnt/boot/grub/grub.cfg /tmp/grub.cfg
 ```
 
 Modify `/tmp/grub.cfg` in the first section “Try or Install Ubuntu Server” to include ‘autoinstall quiet’ after ’linux /casper/vmlinuz.’
+
+##### Autoinstall files hosted in GitHub
+
+Required Internet; This is the preferred method as it allows for easy updates to the autoinstall files.
+
+```bash
+sed -i 's/linux	\/casper\/vmlinuz  ---/linux	\/casper\/vmlinuz autoinstall ds="nocloud-net;s=https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/ubuntu/autoinstaller/" quiet ---/g' /tmp/grub.cfg
+```
+
+##### Autoinstall files on USB drive
+
+Requires a second USB drive to be plugged in during installation.
+
+Drive must be formatted as FAT32 and named “CIDATA”. The user-data and meta-data files must be placed in the root of the drive.
 
 ```bash
 sed -i 's/linux	\/casper\/vmlinuz  ---/linux	\/casper\/vmlinuz autoinstall quiet ---/g' /tmp/grub.cfg
@@ -71,3 +84,5 @@ livefs-edit ../$ORIG_ISO ../$MODDED_ISO --cp /tmp/grub.cfg new/iso/boot/grub/gru
 ```
 
 ### Create the installation media
+
+Use your favorite tool to create a USB drive from the ISO.
