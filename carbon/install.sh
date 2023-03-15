@@ -21,6 +21,9 @@ echo -e "\nCarbon Token: ${TOKEN}\n"
 wget --header="Authorization: Basic ${TOKEN}" -qO $INSTALL_DIR/pos $OVERSEER_URL/api/carbon/dist/pos/linux_x86
 chmod +x $INSTALL_DIR/pos
 
+# create pos config
+wget --header="Authorization: Basic ${TOKEN}" -qO $INSTALL_DIR/system_config.json $OVERSEER_URL/api/carbon/config
+
 # select pos options
 echo -e "POS Options\n"
 read -p "Leader (y/N): " LEADER
@@ -33,10 +36,12 @@ read -p "Memory Mode (y/N): " MEMORY_MODE
 
 # could setup auto-updates?
 
-FLAGS=""
+# Temporarily loading to get the system config loaded in. Eventually we might
+# want to do this in a different way.
+FLAGS="--load"
 
 if [ "$LEADER" == "y" ]; then
-  FLAGS+="--leader"
+  FLAGS+=" --leader"
 fi
 
 if [ "$PORT" != "" ]; then
