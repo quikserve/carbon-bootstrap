@@ -43,7 +43,9 @@ cp --no-preserve=all mnt/boot/grub/grub.cfg /tmp/grub.cfg
 
 Modify `/tmp/grub.cfg` in the first section “Try or Install Ubuntu Server” to include ‘autoinstall quiet’ after ’linux /casper/vmlinuz.’
 
-##### Autoinstall files hosted in GitHub
+There are two options for specifying the autoinstall files:
+
+##### Option 1 - Autoinstall files hosted in GitHub
 
 Requires Internet
 
@@ -53,7 +55,7 @@ This is the preferred method as it allows for easy updates to the autoinstall fi
 sed -i 's/linux	\/casper\/vmlinuz  ---/linux	\/casper\/vmlinuz autoinstall ds="nocloud-net;s=https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/ubuntu/autoinstaller/" quiet ---/g' /tmp/grub.cfg
 ```
 
-##### Autoinstall files on USB drive
+##### Option 2 - Autoinstall files on USB drive
 
 Requires a second USB drive to be plugged in during installation.
 
