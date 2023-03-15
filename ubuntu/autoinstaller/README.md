@@ -45,7 +45,9 @@ Modify `/tmp/grub.cfg` in the first section “Try or Install Ubuntu Server” t
 
 ##### Autoinstall files hosted in GitHub
 
-Required Internet; This is the preferred method as it allows for easy updates to the autoinstall files.
+Requires Internet
+
+This is the preferred method as it allows for easy updates to the autoinstall files.
 
 ```bash
 sed -i 's/linux	\/casper\/vmlinuz  ---/linux	\/casper\/vmlinuz autoinstall ds="nocloud-net;s=https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/ubuntu/autoinstaller/" quiet ---/g' /tmp/grub.cfg
