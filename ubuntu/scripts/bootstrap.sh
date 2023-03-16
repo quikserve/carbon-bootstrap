@@ -34,7 +34,7 @@ if [ $version == "20.04" ]; then
 fi
 
 sudo apt update && sudo NEEDRESTART_MODE=a DEBIAN_FRONTEND=noninteractive apt upgrade -y
-sudo NEEDRESTART_MODE=a DEBIAN_FRONTEND=noninteractive apt install -y ubuntu-desktop-minimal dbus-x11 jq
+sudo NEEDRESTART_MODE=a DEBIAN_FRONTEND=noninteractive apt install -y ubuntu-desktop-minimal dbus-x11 jq tigervnc-scraping-server
 sudo DEBIAN_FRONTEND=noninteractive apt remove --autoremove gnome-initial-setup
 
 # Setup security updates automatic
@@ -47,6 +47,7 @@ if ! id -u "pos" >/dev/null 2>&1; then
   echo "pos:quikserve" | sudo chpasswd
   sudo sed -i 's/#  AutomaticLoginEnable = true/AutomaticLoginEnable=true/g' /etc/gdm3/custom.conf
   sudo sed -i 's/#  AutomaticLogin = user1/AutomaticLogin=pos/g' /etc/gdm3/custom.conf
+  sudo sed -i 's/#WaylandEnable=false/WaylandEnable=false/g' /etc/gdm3/custom.conf
 fi
 
 # Install POS
@@ -59,11 +60,11 @@ wget -qO /home/pos/post_login.sh https://raw.githubusercontent.com/quikserve/car
 chmod +x /home/pos/post_login.sh
 chown pos:pos /home/pos/post_login.sh
 
-mkdir -p /home/pos/.config/autostart
+sudo mkdir -p /home/pos/.config/autostart
 echo "[Desktop Entry]
 Type=Application
 Exec=/home/pos/post_login.sh
-Hidden=true
+Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
 Name[en_US]=Post Login
@@ -71,6 +72,12 @@ Name=Post Login
 Comment[en_US]=
 Comment=" | sudo tee /home/pos/.config/autostart/post_login.desktop >/dev/null
 sudo chown -R pos:pos /home/pos/.config
+
+# Setup VNC
+sudo mkdir -p /home/pos/.vnc
+echo "quikserve" | sudo vncpasswd -f > /home/pos/.vnc/passwd
+sudo chown -R pos:pos /home/pos/.vnc
+sudo chmod 0600 /home/pos/.vnc/passwd
 
 # Remove autologin for setup
 sudo rm /etc/systemd/system/getty@tty1.service.d/override.conf
