@@ -49,13 +49,28 @@ if ! id -u "pos" >/dev/null 2>&1; then
   sudo sed -i 's/#  AutomaticLogin = user1/AutomaticLogin=pos/g' /etc/gdm3/custom.conf
 fi
 
-sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.session idle-delay 0
-sudo -u pos dbus-launch --exit-with-session gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-
 # Install POS
 wget -qO carbon.sh https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/carbon/install.sh
 chmod +x carbon.sh
 sudo ./carbon.sh < /dev/tty
+
+# Install login script
+wget -qO /home/pos/post_login.sh https://raw.githubusercontent.com/quikserve/carbon-bootstrap/master/ubuntu/scripts/post_login.sh
+chmod +x /home/pos/post_login.sh
+chown pos:pos /home/pos/post_login.sh
+
+mkdir -p /home/pos/.config/autostart
+echo "[Desktop Entry]
+Type=Application
+Exec=/home/pos/post_login.sh
+Hidden=true
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Post Login
+Name=Post Login
+Comment[en_US]=
+Comment=" | sudo tee /home/pos/.config/autostart/post_login.desktop >/dev/null
+sudo chown -R pos:pos /home/pos/.config
 
 # Remove autologin for setup
 sudo rm /etc/systemd/system/getty@tty1.service.d/override.conf
