@@ -17,9 +17,9 @@ TOKEN=$(curl -s --request GET \
 
 echo -e "\nCarbon Token: ${TOKEN}\n"
 
-# reach out to overseer to get pos binary
-wget --header="Authorization: Basic ${TOKEN}" -qO $INSTALL_DIR/pos $OVERSEER_URL/api/carbon/dist/pos/linux_x86
-chmod +x $INSTALL_DIR/pos
+# reach out to overseer to get pos launcher binary
+wget --header="Authorization: Basic ${TOKEN}" -qO $INSTALL_DIR/launcher $OVERSEER_URL/api/carbon/dist/launcher/linux_x86
+chmod +x $INSTALL_DIR/launcher
 
 # create pos config
 wget --header="Authorization: Basic ${TOKEN}" -qO $INSTALL_DIR/system_config.json $OVERSEER_URL/api/carbon/config
@@ -33,8 +33,6 @@ read -p "KVS Mode (y/N): " KVS_MODE
 read -p "Fullscreen (Y/n): " FULLSCREEN
 read -p "Demo Mode (y/N): " DEMO_MODE
 read -p "Memory Mode (y/N): " MEMORY_MODE
-
-# could setup auto-updates?
 
 # Temporarily loading to get the system config loaded in. Eventually we might
 # want to do this in a different way.
@@ -76,7 +74,7 @@ chown -R $INSTALL_USER:$INSTALL_USER $INSTALL_DIR
 mkdir -p /home/$INSTALL_USER/.config/autostart
 echo "[Desktop Entry]
 Type=Application
-Exec=${INSTALL_DIR}/pos ${FLAGS}
+Exec=${INSTALL_DIR}/launcher ${FLAGS}
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
